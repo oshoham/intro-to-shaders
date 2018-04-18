@@ -1,0 +1,41 @@
+<jittershader name="shader">
+	<description>
+	Example .jxs shader file
+	</description>
+	<param name="u_mouse" type="vec2" default="0. 0." />
+	<param name="u_time" type="float" default="0." />
+	<language name="glsl" version="1.0">
+		<bind param="u_mouse" program="fp" />
+		<bind param="u_time" program="fp" />	
+		<program name="vp" type="vertex" source="sh.passthrudim.vp.glsl" />
+		<program name="fp" type="fragment">
+<![CDATA[
+
+// Author: Patricio Gonzalez Vivo (@patriciogv)
+
+// texture coordinates
+varying vec2 texcoord0;
+varying vec2 texcoord1;
+
+// texture dimensions
+varying vec2 texdim0;
+varying vec2 texdim1;
+
+// uniforms
+uniform float u_time;
+uniform vec2 u_mouse;
+
+void main() {   
+	vec2 st = texcoord0 / texdim0;
+    st.x *= texdim0.x / texdim0.y;
+
+    vec3 color = vec3(0.);
+    color = vec3(st.x, st.y, abs(sin(u_time)));
+
+    gl_FragColor = vec4(color, 1.0);
+}
+
+]]>
+		</program>
+	</language>
+</jittershader>

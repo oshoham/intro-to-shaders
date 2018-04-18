@@ -1,0 +1,15 @@
+{
+  "name": "shader-example",
+  "version": "1.0.0",
+  "description": "An example project showing how to use shaders in p5.js",
+  "main": "sketch.js",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "scripts": {
+    "start": "http-server"
+  },
+  "author": "Oren Shoham",
+  "license": "ISC"
+}

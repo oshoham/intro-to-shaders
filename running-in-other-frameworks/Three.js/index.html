@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- adapted from https://github.com/mrdoob/three.js/blob/master/examples/webgl_shader.html -->
+<html lang="en">
+  <head>
+    <title>Three.js shader example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+      body {
+        background-color: #000000;
+        margin: 0px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/91/three.min.js"></script>
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+      void main() {
+        gl_Position = vec4(position, 1.0);
+      }
+    </script>
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+
+      uniform vec2 u_resolution;
+      uniform vec2 u_mouse;
+      uniform float u_time;
+
+      void main() {
+        vec2 st = gl_FragCoord.xy / u_resolution.xy;
+        st.x *= u_resolution.x / u_resolution.y;
+
+        vec3 color = vec3(0.0);
+        color = vec3(st.x, st.y, abs(sin(u_time)));
+
+        gl_FragColor = vec4(color, 1.0);
+      }
+    </script>
+
+    <script>
+      var container;
+      var camera;
+      var scene;
+      var renderer;
+      var uniforms;
+
+      var mouseX = 0;
+      var mouseY = 0;
+
+      init();
+      animate();
+
+      function init() {
+        container = document.getElementById('container');
+
+        camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+        scene = new THREE.Scene();
+
+        var geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+        uniforms = {
+          u_resolution: { value: [window.innerWidth, window.innerHeight] },
+          u_mouse: { value: [mouseX, mouseY] },
+          u_time: { value: 0.0 },
+        };
+
+        var material = new THREE.ShaderMaterial({
+          uniforms: uniforms,
+          vertexShader: document.getElementById('vertexShader').textContent,
+          fragmentShader: document.getElementById('fragmentShader').textContent
+        });
+
+        var mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        onWindowResize();
+
+        window.addEventListener('resize', onWindowResize, false);
+        window.addEventListener('mousemove', onMouseMove, false);
+      }
+
+      function onWindowResize(event) {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function onMouseMove(event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+      }
+
+      function animate(timestamp) {
+        requestAnimationFrame(animate);
+
+        uniforms.u_time.value = timestamp / 1000.0;
+
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>
