@@ -104,6 +104,8 @@
         requestAnimationFrame(animate);
 
         uniforms.u_time.value = timestamp / 1000.0;
+        uniforms.u_mouse.value = [mouseX, mouseY];
+        uniforms.u_resolution.value = [window.innerWidth, window.innerHeight]
 
         renderer.render(scene, camera);
       }
