@@ -174,9 +174,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 143.5, 286.0, 251.0, 22.0 ],
+					"patching_rect" : [ 143.5, 286.0, 257.0, 22.0 ],
 					"style" : "",
-					"text" : "jit.gl.slab shader-example @file os.shader.jxs"
+					"text" : "jit.gl.slab shader-example @file pgv.shader.jxs"
 				}
 
 			}
@@ -236,7 +236,7 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-15",
-					"increment" : 3.3,
+					"increment" : 0.01,
 					"maxclass" : "incdec",
 					"numinlets" : 1,
 					"numoutlets" : 1,
