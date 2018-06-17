@@ -11,19 +11,19 @@ precision mediump float;
 // it's up to you which one to use, they all do the same thing
 
 void main() {
+    vec3 color = vec3(0.0);
+
     vec3 blue = vec3(0.0, 0.0, 1.0);
-    
+
     // now we've swapped the red value for the blue value
     vec3 red = blue.brg;
-    
+
     // we can also use the same component multiple times
     vec3 yellow = red.rrg;
-    
-    // since colors and position coordinates are both normalized between 0.0 and 1.0,
-    // we can start to think of vectors as being interchangeable between these contexts
-    vec2 topRight = yellow.xy;
-    
-    vec3 color = yellow;
 
-    gl_FragColor = vec4(color,1.0);
+    // color = blue;
+    // color = red;
+    color = yellow;
+
+    gl_FragColor = vec4(color, 1.0);
 }
