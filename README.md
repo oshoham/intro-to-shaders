@@ -1,4 +1,4 @@
-# Making Art With Your Graphics Card.
+# Intro to Shaders
 
 Slides and code examples for an introductory workshop on fragment shaders originally taught at NYU ITP in Spring 2018.
 
